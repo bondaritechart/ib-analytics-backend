@@ -1,0 +1,102 @@
+scalar DateTime
+
+enum Role {
+  ADMIN
+  USER
+}
+
+type User {
+  id: ID!
+  firstName: String!
+  lastName: String!
+  username: String!
+  email: String!
+  role: Role!
+  avatar: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Event {
+  id: ID!
+  host: String!
+  eventName: String!
+  url: String!
+  date: DateTime!
+  properties: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type AuthPayload {
+  accessToken: String!
+  user: User!
+}
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  username: String!
+  email: String!
+  password: String!
+  role: Role
+  avatar: String
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  username: String
+  email: String
+  password: String
+  role: Role
+  avatar: String
+}
+
+input CreateEventInput {
+  host: String!
+  eventName: String!
+  url: String!
+  date: DateTime!
+  properties: String
+}
+
+input UpdateEventInput {
+  host: String
+  eventName: String
+  url: String
+  date: DateTime
+  properties: String
+}
+
+input EventFilterInput {
+  host: String
+  eventName: String
+  fromDate: DateTime
+  toDate: DateTime
+}
+
+type Query {
+  me: User
+  users: [User!]!
+  user(id: ID!): User
+  events(filter: EventFilterInput): [Event!]!
+  event(id: ID!): Event
+}
+
+type Mutation {
+  login(input: LoginInput!): AuthPayload!
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: ID!, input: UpdateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+
+  createEvent(input: CreateEventInput!): Event!
+  updateEvent(id: ID!, input: UpdateEventInput!): Event!
+  deleteEvent(id: ID!): Boolean!
+}
+
