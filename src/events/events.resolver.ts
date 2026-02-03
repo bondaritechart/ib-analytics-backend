@@ -1,9 +1,7 @@
 import { Args, Mutation, Query, Resolver } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { EventsService } from './events.service';
-import { CreateEventInput } from './dto/create-event.input';
-import { UpdateEventInput } from './dto/update-event.input';
-import { EventFilterInput } from './dto/event-filter.input';
+import { CreateEventInput, EventFilterInput, UpdateEventInput } from '../graphql';
 import { GqlAuthGuard } from '../common/guards/gql-auth.guard';
 
 @Resolver('Event')

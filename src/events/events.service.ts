@@ -5,9 +5,11 @@ import {
 } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateEventInput } from './dto/create-event.input';
-import { UpdateEventInput } from './dto/update-event.input';
-import { EventFilterInput } from './dto/event-filter.input';
+import {
+  CreateEventInput,
+  EventFilterInput,
+  UpdateEventInput,
+} from '../graphql';
 
 @Injectable()
 export class EventsService {
@@ -43,23 +45,23 @@ export class EventsService {
   async update(id: string, input: UpdateEventInput) {
     const data: Prisma.EventUpdateInput = {};
 
-    if (input.host !== undefined) {
+    if (input.host != null) {
       data.host = input.host;
     }
 
-    if (input.eventName !== undefined) {
+    if (input.eventName != null) {
       data.eventName = input.eventName;
     }
 
-    if (input.url !== undefined) {
+    if (input.url != null) {
       data.url = input.url;
     }
 
-    if (input.date !== undefined) {
+    if (input.date != null) {
       data.date = this.toDate(input.date);
     }
 
-    if (input.properties !== undefined) {
+    if (input.properties != null) {
       data.properties = this.normalizeProperties(input.properties);
     }
 
@@ -115,7 +117,7 @@ export class EventsService {
     return where;
   }
 
-  private normalizeProperties(value?: string): string {
+  private normalizeProperties(value?: string | null): string {
     if (!value) {
       return '{}';
     }
@@ -128,7 +130,14 @@ export class EventsService {
     }
   }
 
-  private toDate(value: string): Date {
+  private toDate(value: string | Date): Date {
+    if (value instanceof Date) {
+      if (Number.isNaN(value.getTime())) {
+        throw new BadRequestException('Invalid date value');
+      }
+      return value;
+    }
+
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) {
       throw new BadRequestException('Invalid date value');
@@ -136,4 +145,3 @@ export class EventsService {
     return date;
   }
 }
-

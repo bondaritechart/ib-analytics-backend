@@ -22,6 +22,10 @@ import { PrismaModule } from './prisma/prisma.module';
       sortSchema: true,
       playground: false,
       introspection: true,
+      definitions: {
+        path: join(process.cwd(), 'src/graphql.ts'),
+        outputAs: 'interface',
+      },
       resolvers: { DateTime: GraphQLISODateTime },
     }),
     PrismaModule,

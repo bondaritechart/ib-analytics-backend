@@ -1,8 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
-import { LoginInput } from './dto/login.input';
-import { AuthPayload } from './dto/auth.payload';
+import { AuthPayload, LoginInput, Role } from '../graphql';
 
 @Injectable()
 export class AuthService {
@@ -12,8 +11,9 @@ export class AuthService {
   ) {}
 
   async login(loginInput: LoginInput): Promise<AuthPayload> {
-    const userWithPassword =
-      await this.usersService.findByEmailWithPassword(loginInput.email);
+    const userWithPassword = await this.usersService.findByEmailWithPassword(
+      loginInput.email,
+    );
 
     if (!userWithPassword) {
       throw new UnauthorizedException('Invalid credentials');
@@ -38,8 +38,10 @@ export class AuthService {
 
     return {
       accessToken: await this.jwtService.signAsync(payload),
-      user: cleanUser,
+      user: {
+        ...cleanUser,
+        role: cleanUser.role as unknown as Role,
+      },
     };
   }
 }
-

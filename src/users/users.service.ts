@@ -7,8 +7,7 @@ import {
 import { Prisma, User } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
+import { CreateUserInput, UpdateUserInput } from '../graphql';
 import { DEFAULT_USER_ROLE } from '../common/enums/user-role.enum';
 
 type SafeUser = Omit<User, 'password'>;
