@@ -24,6 +24,13 @@
     "db:migrate": "npm run prisma:deploy",
     "db:push": "prisma db push"
   },
+  "scriptsComments": {
+    "prisma:generate": "Generate Prisma client based on schema.prisma.",
+    "prisma:migrate": "Create and apply a new migration in dev; updates schema and client.",
+    "prisma:deploy": "Apply existing migrations in production/staging (no new ones created).",
+    "db:migrate": "Alias for prisma:migrate deploy; used in CI/prod environments.",
+    "db:push": "Push schema changes directly to the database without migrations."
+  },
   "dependencies": {
     "@apollo/server": "^5.2.0",
     "@as-integrations/express5": "^1.1.2",
