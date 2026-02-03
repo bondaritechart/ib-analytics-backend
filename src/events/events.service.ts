@@ -16,21 +16,22 @@ export class EventsService {
   constructor(private readonly prisma: PrismaService) {}
 
   create(input: CreateEventInput) {
+    const data = {
+      host: input.host,
+      eventName: input.eventName,
+      url: input.url,
+      properties: this.normalizeProperties(input.properties),
+    } as Prisma.EventCreateInput;
+
     return this.prisma.event.create({
-      data: {
-        host: input.host,
-        eventName: input.eventName,
-        url: input.url,
-        date: this.toDate(input.date),
-        properties: this.normalizeProperties(input.properties),
-      },
+      data,
     });
   }
 
   findAll(filter?: EventFilterInput) {
     return this.prisma.event.findMany({
       where: this.buildWhere(filter),
-      orderBy: { date: 'desc' },
+      orderBy: { createdAt: 'desc' },
     });
   }
 
@@ -55,10 +56,6 @@ export class EventsService {
 
     if (input.url != null) {
       data.url = input.url;
-    }
-
-    if (input.date != null) {
-      data.date = this.toDate(input.date);
     }
 
     if (input.properties != null) {
@@ -103,17 +100,6 @@ export class EventsService {
       where.eventName = filter.eventName;
     }
 
-    if (filter.fromDate || filter.toDate) {
-      const dateFilter: Prisma.DateTimeFilter = {};
-      if (filter.fromDate) {
-        dateFilter.gte = this.toDate(filter.fromDate);
-      }
-      if (filter.toDate) {
-        dateFilter.lte = this.toDate(filter.toDate);
-      }
-      where.date = dateFilter;
-    }
-
     return where;
   }
 
@@ -128,20 +114,5 @@ export class EventsService {
     } catch {
       throw new BadRequestException('Properties must be a valid JSON string');
     }
-  }
-
-  private toDate(value: string | Date): Date {
-    if (value instanceof Date) {
-      if (Number.isNaN(value.getTime())) {
-        throw new BadRequestException('Invalid date value');
-      }
-      return value;
-    }
-
-    const date = new Date(value);
-    if (Number.isNaN(date.getTime())) {
-      throw new BadRequestException('Invalid date value');
-    }
-    return date;
   }
 }

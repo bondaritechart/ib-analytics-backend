@@ -22,7 +22,6 @@ export interface Event {
   host: string;
   eventName: string;
   url: string;
-  date: DateTime;
   properties: string;
   createdAt: DateTime;
   updatedAt: DateTime;
@@ -62,7 +61,6 @@ export interface CreateEventInput {
   host: string;
   eventName: string;
   url: string;
-  date: DateTime;
   properties?: string | null;
 }
 
@@ -70,15 +68,12 @@ export interface UpdateEventInput {
   host?: string | null;
   eventName?: string | null;
   url?: string | null;
-  date?: DateTime | null;
   properties?: string | null;
 }
 
 export interface EventFilterInput {
   host?: string | null;
   eventName?: string | null;
-  fromDate?: DateTime | null;
-  toDate?: DateTime | null;
 }
 
 export interface Query {

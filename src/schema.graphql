@@ -22,7 +22,6 @@ type Event {
   host: String!
   eventName: String!
   url: String!
-  date: DateTime!
   properties: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -62,7 +61,6 @@ input CreateEventInput {
   host: String!
   eventName: String!
   url: String!
-  date: DateTime!
   properties: String
 }
 
@@ -70,15 +68,12 @@ input UpdateEventInput {
   host: String
   eventName: String
   url: String
-  date: DateTime
   properties: String
 }
 
 input EventFilterInput {
   host: String
   eventName: String
-  fromDate: DateTime
-  toDate: DateTime
 }
 
 type Query {
