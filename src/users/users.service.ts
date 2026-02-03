@@ -73,7 +73,7 @@ export class UsersService {
       throw new NotFoundException('User not found');
     }
 
-    if (input.email || input.username) {
+    if (input.email != null || input.username != null) {
       await this.assertUniqueFields(
         input.email ?? current.email,
         input.username ?? current.username,
@@ -81,7 +81,31 @@ export class UsersService {
       );
     }
 
-    const payload: Prisma.UserUpdateInput = { ...input };
+    const payload: Prisma.UserUpdateInput = {};
+
+    if (input.firstName != null) {
+      payload.firstName = input.firstName;
+    }
+
+    if (input.lastName != null) {
+      payload.lastName = input.lastName;
+    }
+
+    if (input.username != null) {
+      payload.username = input.username;
+    }
+
+    if (input.email != null) {
+      payload.email = input.email;
+    }
+
+    if (input.role != null) {
+      payload.role = input.role;
+    }
+
+    if (input.avatar != null) {
+      payload.avatar = input.avatar;
+    }
 
     if (input.password) {
       payload.password = await this.hashPassword(input.password);
@@ -136,6 +160,7 @@ export class UsersService {
 
   private sanitizeUser(user: User): SafeUser {
     const { password: _password, ...safeUser } = user;
+    void _password;
     return safeUser;
   }
 }
