@@ -28,4 +28,3 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return this.usersService.findOne(payload.sub);
   }
 }
-

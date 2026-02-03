@@ -47,10 +47,7 @@ export class UsersResolver {
   @Mutation('updateUser')
   @UseGuards(GqlAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
-  updateUser(
-    @Args('id') id: string,
-    @Args('input') input: UpdateUserInput,
-  ) {
+  updateUser(@Args('id') id: string, @Args('input') input: UpdateUserInput) {
     return this.usersService.update(id, input);
   }
 
@@ -61,4 +58,3 @@ export class UsersResolver {
     return this.usersService.remove(id);
   }
 }
-

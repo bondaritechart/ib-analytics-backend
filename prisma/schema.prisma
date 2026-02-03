@@ -40,3 +40,4 @@ model Event {
   @@map("events")
 }
 
+
