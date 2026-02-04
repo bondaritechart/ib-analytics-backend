@@ -18,10 +18,12 @@ import { PrismaModule } from './prisma/prisma.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       typePaths: [join(process.cwd(), 'src/schema.graphql')],
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       context: ({ req }) => ({ req }),
       sortSchema: true,
-      playground: false,
+      playground: process.env.NODE_ENV !== 'production',
       introspection: true,
+      csrfPrevention: false,
       definitions: {
         path: join(process.cwd(), 'src/graphql.ts'),
         outputAs: 'interface',

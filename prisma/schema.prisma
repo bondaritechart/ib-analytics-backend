@@ -14,8 +14,8 @@ enum Role {
 
 model User {
   id        String   @id @default(uuid())
-  firstName String   @map("first_name")
-  lastName  String   @map("last_name")
+  firstName String
+  lastName  String
   username  String   @unique
   email     String   @unique
   password  String
@@ -30,7 +30,7 @@ model User {
 model Event {
   id         String   @id @default(uuid())
   host       String
-  eventName  String   @map("event_name")
+  eventName  String
   url        String
   properties String   @default("{}")
   createdAt  DateTime @default(now())

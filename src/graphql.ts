@@ -1,95 +1,106 @@
-export type DateTime = Date;
+
+/*
+ * -------------------------------------------------------
+ * THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+ * -------------------------------------------------------
+ */
+
+/* tslint:disable */
+/* eslint-disable */
 
 export enum Role {
-  ADMIN = 'ADMIN',
-  USER = 'USER',
-}
-
-export interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  role: Role;
-  avatar?: string | null;
-  createdAt: DateTime;
-  updatedAt: DateTime;
-}
-
-export interface Event {
-  id: string;
-  host: string;
-  eventName: string;
-  url: string;
-  properties: string;
-  createdAt: DateTime;
-  updatedAt: DateTime;
-}
-
-export interface AuthPayload {
-  accessToken: string;
-  user: User;
-}
-
-export interface LoginInput {
-  email: string;
-  password: string;
-}
-
-export interface CreateUserInput {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-  role?: Role | null;
-  avatar?: string | null;
-}
-
-export interface UpdateUserInput {
-  firstName?: string | null;
-  lastName?: string | null;
-  username?: string | null;
-  email?: string | null;
-  password?: string | null;
-  role?: Role | null;
-  avatar?: string | null;
+    ADMIN = "ADMIN",
+    USER = "USER"
 }
 
 export interface CreateEventInput {
-  host: string;
-  eventName: string;
-  url: string;
-  properties?: string | null;
+    eventName: string;
+    host: string;
+    properties?: Nullable<string>;
+    url: string;
 }
 
-export interface UpdateEventInput {
-  host?: string | null;
-  eventName?: string | null;
-  url?: string | null;
-  properties?: string | null;
+export interface CreateUserInput {
+    avatar?: Nullable<string>;
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    role?: Nullable<Role>;
+    username: string;
 }
 
 export interface EventFilterInput {
-  host?: string | null;
-  eventName?: string | null;
+    eventName?: Nullable<string>;
+    host?: Nullable<string>;
 }
 
-export interface Query {
-  me?: User | null;
-  users: User[];
-  user?: User | null;
-  events: Event[];
-  event?: Event | null;
+export interface LoginInput {
+    email: string;
+    password: string;
 }
 
-export interface Mutation {
-  login: AuthPayload;
-  createUser: User;
-  updateUser: User;
-  deleteUser: boolean;
-  createEvent: Event;
-  updateEvent: Event;
-  deleteEvent: boolean;
+export interface UpdateEventInput {
+    eventName?: Nullable<string>;
+    host?: Nullable<string>;
+    properties?: Nullable<string>;
+    url?: Nullable<string>;
 }
+
+export interface UpdateUserInput {
+    avatar?: Nullable<string>;
+    email?: Nullable<string>;
+    firstName?: Nullable<string>;
+    lastName?: Nullable<string>;
+    password?: Nullable<string>;
+    role?: Nullable<Role>;
+    username?: Nullable<string>;
+}
+
+export interface AuthPayload {
+    accessToken: string;
+    user: User;
+}
+
+export interface Event {
+    createdAt: DateTime;
+    eventName: string;
+    host: string;
+    id: string;
+    properties: string;
+    updatedAt: DateTime;
+    url: string;
+}
+
+export interface IMutation {
+    createEvent(input: CreateEventInput): Event | Promise<Event>;
+    createUser(input: CreateUserInput): User | Promise<User>;
+    deleteEvent(id: string): boolean | Promise<boolean>;
+    deleteUser(id: string): boolean | Promise<boolean>;
+    login(input: LoginInput): AuthPayload | Promise<AuthPayload>;
+    updateEvent(id: string, input: UpdateEventInput): Event | Promise<Event>;
+    updateUser(id: string, input: UpdateUserInput): User | Promise<User>;
+}
+
+export interface IQuery {
+    event(id: string): Nullable<Event> | Promise<Nullable<Event>>;
+    events(filter?: Nullable<EventFilterInput>): Event[] | Promise<Event[]>;
+    me(): Nullable<User> | Promise<Nullable<User>>;
+    user(id: string): Nullable<User> | Promise<Nullable<User>>;
+    users(): User[] | Promise<User[]>;
+}
+
+export interface User {
+    avatar?: Nullable<string>;
+    createdAt: DateTime;
+    email: string;
+    firstName: string;
+    id: string;
+    lastName: string;
+    role: Role;
+    updatedAt: DateTime;
+    username: string;
+}
+
+export type DateTime = any;
+type Nullable<T> = T | null;
