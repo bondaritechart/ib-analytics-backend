@@ -20,8 +20,9 @@ export class EventsService {
       host: input.host,
       eventName: input.eventName,
       url: input.url,
+      userUuid: String(input.userUuid),
       properties: this.normalizeProperties(input.properties),
-    } as Prisma.EventCreateInput;
+    } as unknown as Prisma.EventCreateInput;
 
     return this.prisma.event.create({
       data,
@@ -44,7 +45,7 @@ export class EventsService {
   }
 
   async update(id: string, input: UpdateEventInput) {
-    const data: Prisma.EventUpdateInput = {};
+    const data: Record<string, unknown> = {};
 
     if (input.host != null) {
       data.host = input.host;
@@ -60,6 +61,10 @@ export class EventsService {
 
     if (input.properties != null) {
       data.properties = this.normalizeProperties(input.properties);
+    }
+
+    if (typeof input.userUuid === 'string') {
+      data.userUuid = input.userUuid;
     }
 
     if (Object.keys(data).length === 0) {
@@ -90,7 +95,7 @@ export class EventsService {
       return {};
     }
 
-    const where: Prisma.EventWhereInput = {};
+    const where: Record<string, unknown> = {};
 
     if (filter.host) {
       where.host = filter.host;
@@ -100,7 +105,11 @@ export class EventsService {
       where.eventName = filter.eventName;
     }
 
-    return where;
+    if (typeof filter.userUuid === 'string') {
+      where.userUuid = filter.userUuid;
+    }
+
+    return where as Prisma.EventWhereInput;
   }
 
   private normalizeProperties(value?: string | null): string {

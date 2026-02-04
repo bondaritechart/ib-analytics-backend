@@ -5,6 +5,7 @@ type CreateEventRequest = {
   host: string;
   eventName: string;
   url: string;
+  userUuid: string;
   properties?: string | null;
 };
 

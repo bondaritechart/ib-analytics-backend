@@ -32,6 +32,7 @@ model Event {
   host       String
   eventName  String
   url        String
+  userUuid   String
   properties String   @default("{}")
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -39,5 +40,6 @@ model Event {
   @@index([host])
   @@index([eventName])
   @@index([url])
+  @@index([userUuid])
   @@map("events")
 }

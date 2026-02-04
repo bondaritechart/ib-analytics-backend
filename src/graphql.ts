@@ -18,6 +18,7 @@ export interface CreateEventInput {
     host: string;
     properties?: Nullable<string>;
     url: string;
+    userUuid: string;
 }
 
 export interface CreateUserInput {
@@ -33,6 +34,7 @@ export interface CreateUserInput {
 export interface EventFilterInput {
     eventName?: Nullable<string>;
     host?: Nullable<string>;
+    userUuid?: Nullable<string>;
 }
 
 export interface LoginInput {
@@ -45,6 +47,7 @@ export interface UpdateEventInput {
     host?: Nullable<string>;
     properties?: Nullable<string>;
     url?: Nullable<string>;
+    userUuid?: Nullable<string>;
 }
 
 export interface UpdateUserInput {
@@ -70,6 +73,7 @@ export interface Event {
     properties: string;
     updatedAt: DateTime;
     url: string;
+    userUuid: string;
 }
 
 export interface IMutation {
