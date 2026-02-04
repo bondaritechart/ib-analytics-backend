@@ -1,7 +1,7 @@
 {
   "version": 2,
   "installCommand": "npm install",
-  "buildCommand": "npm run build && npm run prisma:deploy",
+  "buildCommand": "npm run build",
   "functions": {
     "api/index.ts": {
       "includeFiles": "src/graphql/**/*.graphql"
@@ -9,7 +9,7 @@
   },
   "routes": [
     {
-      "src": "/graphql",
+      "src": "/graphql",  
       "dest": "/api/index.ts"
     },
     {
