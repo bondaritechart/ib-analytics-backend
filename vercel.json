@@ -2,16 +2,22 @@
   "version": 2,
   "installCommand": "npm install",
   "buildCommand": "npm run build && npm run prisma:deploy",
-  "builds": [
-    {
-      "src": "dist/main.js",
-      "use": "@vercel/node"
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "src/graphql/**/*.graphql"
     }
-  ],
+  },
   "routes": [
     {
+      "src": "/graphql",
+      "dest": "/api/index.ts"
+    },
+    {
       "src": "/(.*)",
-      "dest": "dist/main.js"
+      "dest": "/api/index.ts"
     }
-  ]
+  ],
+  "env": {
+    "NODE_ENV": "production"
+  }
 }
