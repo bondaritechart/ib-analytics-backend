@@ -6,6 +6,9 @@ type CreateEventRequest = {
   eventName: string;
   url: string;
   userUuid: string;
+  location?: string | null;
+  ipAddress?: string | null;
+  userAgent?: string | null;
   properties?: string | null;
 };
 

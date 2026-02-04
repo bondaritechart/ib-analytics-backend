@@ -23,6 +23,9 @@ type Event {
   eventName: String!
   url: String!
   userUuid: String!
+  location: String
+  ipAddress: String
+  userAgent: String
   properties: String!
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -63,6 +66,9 @@ input CreateEventInput {
   eventName: String!
   url: String!
   userUuid: String!
+  location: String
+  ipAddress: String
+  userAgent: String
   properties: String
 }
 
@@ -71,6 +77,9 @@ input UpdateEventInput {
   eventName: String
   url: String
   userUuid: String
+  location: String
+  ipAddress: String
+  userAgent: String
   properties: String
 }
 
@@ -78,6 +87,9 @@ input EventFilterInput {
   host: String
   eventName: String
   userUuid: String
+  location: String
+  ipAddress: String
+  userAgent: String
 }
 
 type Query {

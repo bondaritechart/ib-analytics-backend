@@ -16,8 +16,11 @@ export enum Role {
 export interface CreateEventInput {
     eventName: string;
     host: string;
+    ipAddress?: Nullable<string>;
+    location?: Nullable<string>;
     properties?: Nullable<string>;
     url: string;
+    userAgent?: Nullable<string>;
     userUuid: string;
 }
 
@@ -34,6 +37,9 @@ export interface CreateUserInput {
 export interface EventFilterInput {
     eventName?: Nullable<string>;
     host?: Nullable<string>;
+    ipAddress?: Nullable<string>;
+    location?: Nullable<string>;
+    userAgent?: Nullable<string>;
     userUuid?: Nullable<string>;
 }
 
@@ -45,8 +51,11 @@ export interface LoginInput {
 export interface UpdateEventInput {
     eventName?: Nullable<string>;
     host?: Nullable<string>;
+    ipAddress?: Nullable<string>;
+    location?: Nullable<string>;
     properties?: Nullable<string>;
     url?: Nullable<string>;
+    userAgent?: Nullable<string>;
     userUuid?: Nullable<string>;
 }
 
@@ -70,9 +79,12 @@ export interface Event {
     eventName: string;
     host: string;
     id: string;
+    ipAddress?: Nullable<string>;
+    location?: Nullable<string>;
     properties: string;
     updatedAt: DateTime;
     url: string;
+    userAgent?: Nullable<string>;
     userUuid: string;
 }
 

@@ -21,6 +21,9 @@ export class EventsService {
       eventName: input.eventName,
       url: input.url,
       userUuid: String(input.userUuid),
+      location: input.location == null ? undefined : String(input.location),
+      ipAddress: input.ipAddress == null ? undefined : String(input.ipAddress),
+      userAgent: input.userAgent == null ? undefined : String(input.userAgent),
       properties: this.normalizeProperties(input.properties),
     } as unknown as Prisma.EventCreateInput;
 
@@ -67,6 +70,18 @@ export class EventsService {
       data.userUuid = input.userUuid;
     }
 
+    if (input.location != null) {
+      data.location = input.location;
+    }
+
+    if (input.ipAddress != null) {
+      data.ipAddress = input.ipAddress;
+    }
+
+    if (input.userAgent != null) {
+      data.userAgent = input.userAgent;
+    }
+
     if (Object.keys(data).length === 0) {
       throw new BadRequestException('No fields provided for update');
     }
@@ -107,6 +122,18 @@ export class EventsService {
 
     if (typeof filter.userUuid === 'string') {
       where.userUuid = filter.userUuid;
+    }
+
+    if (typeof filter.location === 'string') {
+      where.location = filter.location;
+    }
+
+    if (typeof filter.ipAddress === 'string') {
+      where.ipAddress = filter.ipAddress;
+    }
+
+    if (typeof filter.userAgent === 'string') {
+      where.userAgent = filter.userAgent;
     }
 
     return where as Prisma.EventWhereInput;
