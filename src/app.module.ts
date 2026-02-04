@@ -24,10 +24,14 @@ import { PrismaModule } from './prisma/prisma.module';
       playground: process.env.NODE_ENV !== 'production',
       introspection: true,
       csrfPrevention: false,
-      definitions: {
-        path: join(process.cwd(), 'src/graphql.ts'),
-        outputAs: 'interface',
-      },
+      ...(process.env.NODE_ENV !== 'production'
+        ? {
+            definitions: {
+              path: join(process.cwd(), 'src/graphql.ts'),
+              outputAs: 'interface',
+            },
+          }
+        : {}),
       resolvers: { DateTime: GraphQLISODateTime },
     }),
     PrismaModule,
