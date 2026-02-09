@@ -19,7 +19,7 @@ import { PrismaModule } from './prisma/prisma.module';
       driver: ApolloDriver,
       typePaths: [join(process.cwd(), 'src/schema.graphql')],
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      context: ({ req }) => ({ req }),
+      context: ({ req, res }) => ({ req, res }),
       sortSchema: true,
       playground: process.env.NODE_ENV !== 'production',
       introspection: true,
